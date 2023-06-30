@@ -32,6 +32,15 @@ class Boggle():
         """
         Make and return a random boggle board.
         PAM: we imported the string library and random.choice module to create our game boards much easier.
+
+        returns a board that looks like this, where the s can be any Uppercase letter:
+        board = [
+            [ 's', 's', 's', 's', 's' ],
+            [ 's', 's', 's', 's', 's' ],
+            [ 's', 's', 's', 's', 's' ],
+            [ 's', 's', 's', 's', 's' ],
+            [ 's', 's', 's', 's', 's' ],
+        ]
         """
 
         board = []
