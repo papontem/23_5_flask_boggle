@@ -49,6 +49,21 @@ def start_game():
 @app.route('/game-board')
 def show_board():
     """Show the user the boggle board"""
-    board = session.get('board')
+
+    board = session.get('board',[
+                    ['H', '+', '+', '+','+'],
+                    ['+', 'E', '+', '+','+'],
+                    ['+', '+', 'L', '+','+'],
+                    ['+', '+', '+', 'L','+'],
+                    ['+', '+', '+', '+','O'],
+                ])
 
     return render_template("board.html", board=board)
+
+@app.route('/guess' , methods=["POST","GET"])
+def judge_guess():
+    """ here we will validate the guess of the word we were sent then redirect user back to /game-board """
+
+    # do stuff with request.form
+
+    return redirect('/game-board')

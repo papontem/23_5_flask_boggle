@@ -4,6 +4,7 @@ body {
 	color: black;
 	background-color: bisque;
 }
+
 .navbar {
 	display: flexbox;
 	justify-content: center;
@@ -21,17 +22,6 @@ body {
 	color: black;
 	background-color: gray;
 }
-h1 {
-	font-size: larger;
-	color: blueviolet;
-}
-main#content {
-	padding: 5px;
-	margin: 20px;
-	border-radius: 10px;
-	background-color: white;
-}
-
 .messages li p {
 	padding: 1rem;
 	font-size: 1.5rem;
@@ -45,4 +35,31 @@ main#content {
 .messages .success p {
 	border: solid 2px green;
 	background-color: rgba(144, 255, 144, 0.5);
+}
+
+h1 {
+	font-size: larger;
+	color: blueviolet;
+}
+main#content {
+	padding: 5px;
+	margin: 20px;
+	border-radius: 10px;
+	background-color: white;
+}
+#game-board-container {
+	padding: 10px;
+	outline: 6px black solid;
+	outline-style: inset;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#game-board td {
+	padding-right: 6px;
+	padding-left: 6px;
+	background-color: beige;
+}
+#guess-word-form {
+	margin: 10px;
 }

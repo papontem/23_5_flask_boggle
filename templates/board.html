@@ -5,16 +5,28 @@
 {% block content %}
 <!-- HTML BODY TAG CONTENT OF WEBPAGE -->
 <h2>Boggle Game Board</h2>
-<div id="game-board">
-	[][][][][]
-	<br />
-	[][][][][]
-	<br />
-	[][][][][]
-	<br />
-	[][][][][]
-	<br />
-	[][][][][]
+<div id="game-board-container">
+	<!-- [][][][][]<br />[][][][][]<br />[][][][][]<br />[][][][][]<br />[][][][][] -->
+	<table id="game-board">
+		<thead>
+			<tr>
+				<th colspan="5">---Boggle---</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in board %}
+			<tr>
+				{% for chr in row %}
+				<td>{{ chr }}</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
-
+<form id="guess-word-form" action="/guess" method="POST">
+	<label for="guess">Guess a word:</label> <br />
+	<input id="guess" name="guess" type="text" placeholder="single word here" />
+	<button>is it valid?</button>
+</form>
 {% endblock %}
