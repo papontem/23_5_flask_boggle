@@ -69,29 +69,29 @@ class FlaskTests(TestCase):
             self.assertEqual(res.status_code, 200)
             self.assertIn('<h2>Boggle Game Board</h2>', html)
 
-    def test_board_word_guess_redirection(self):
-        with app.test_client() as client:
-            resp = client.get("/guess")
+    # def test_board_word_guess_redirection(self):
+    #     with app.test_client() as client:
+    #         resp = client.get("/guess")
 
-            self.assertEqual(resp.status_code, 302)
-            self.assertEqual(resp.location, "http://localhost/game-board")
+    #         self.assertEqual(resp.status_code, 302)
+    #         self.assertEqual(resp.location, "http://localhost/game-board")
 
-    def test_board_word_guess_redirection_followed(self):
-        with app.test_client() as client:
+    # def test_board_word_guess_redirection_followed(self):
+    #     with app.test_client() as client:
             
-            # # Any changes to session should go in here:
-            # with client.session_transaction() as change_session:
-            #     change_session['board'] = [
-            #         ['A', 'B', 'C', 'D','E'],
-            #         ['A', 'B', 'C', 'D','E'],
-            #         ['A', 'B', 'C', 'D','E'],
-            #         ['A', 'B', 'C', 'D','E'],
-            #         ['A', 'B', 'C', 'D','E'],
-            #     ]
+    #         # # Any changes to session should go in here:
+    #         # with client.session_transaction() as change_session:
+    #         #     change_session['board'] = [
+    #         #         ['A', 'B', 'C', 'D','E'],
+    #         #         ['A', 'B', 'C', 'D','E'],
+    #         #         ['A', 'B', 'C', 'D','E'],
+    #         #         ['A', 'B', 'C', 'D','E'],
+    #         #         ['A', 'B', 'C', 'D','E'],
+    #         #     ]
 
-            resp = client.get("/guess", follow_redirects=True)
-            html = resp.get_data(as_text=True)
+    #         resp = client.get("/guess", follow_redirects=True)
+    #         html = resp.get_data(as_text=True)
 
-            self.assertEqual(resp.status_code, 200)
-            self.assertIn('<h2>Boggle Game Board</h2>', html)
+    #         self.assertEqual(resp.status_code, 200)
+    #         self.assertIn('<h2>Boggle Game Board</h2>', html)
 

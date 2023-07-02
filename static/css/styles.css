@@ -63,3 +63,10 @@ main#content {
 #guess-word-form {
 	margin: 10px;
 }
+.chr {
+	text-align: center;
+	width: 0.7em;
+	padding: 6px;
+	outline: 1px black solid;
+	border-radius: 0.5em;
+}

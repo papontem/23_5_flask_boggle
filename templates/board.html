@@ -17,7 +17,7 @@
 			{% for row in board %}
 			<tr>
 				{% for chr in row %}
-				<td>{{ chr }}</td>
+				<td><div class="chr">{{ chr }}</div></td>
 				{% endfor %}
 			</tr>
 			{% endfor %}
@@ -26,7 +26,13 @@
 </div>
 <form id="guess-word-form" action="/guess" method="POST">
 	<label for="guess">Guess a word:</label> <br />
-	<input id="guess" name="guess" type="text" placeholder="single word here" />
+	<input id="guess" name="guess_word" type="text" placeholder="single word here" />
 	<button>is it valid?</button>
 </form>
+<!-- our guesses listed -->
+<div id="guess-word-list">
+	<h3>Guesses</h3>
+	<ol id="guesses">
+	</ol>
+</div>
 {% endblock %}
