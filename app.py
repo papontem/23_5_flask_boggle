@@ -56,6 +56,7 @@ def start_game():
 
     session['board'] = board
     session['guess_list'] = []
+    session['time_limit'] = 60
 
     return redirect('/game-board')
 
@@ -76,16 +77,20 @@ def show_board():
 
 @app.route('/guess' , methods=["POST", "GET"])
 def validate_guess_word():
-    """ here we will validate the guess of the word we were sent then return some json depending on the state of the validation """
+    """ 
+    this function validates the guess of the word we were sent then returns a json payload with the result
+    TODO: need to berify that usr hasnt inputed the same word twice, to prevent duplicates. 
+    
+    """
 
-    # none of these were working because axios sends data as json and not in flasks request.args or request.form dictionaries.
+    # none of these were working because axios was sending data as json and not in flasks request.args or request.form dictionaries.
     # guess = request.form.get("guess_word", "FORM")
     # guess = request.args.get("guess_word", "ARGS")
     
     # this is to get the json from our request sent by axios, we set silent equal to true so that
     #  incase this method fails, it does so silently, without stopping logic and return None instead.
     payload = request.get_json(silent=True)
-    
+
     if payload == None:
         result ={"result": "testing"}
         return jsonify(result)

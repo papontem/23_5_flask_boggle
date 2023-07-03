@@ -26,7 +26,11 @@
 </div>
 <form id="guess-word-form" action="/guess" method="POST">
 	<label for="guess">Guess a word:</label> <br />
-	<input id="guess" name="guess_word" type="text" placeholder="single word here" />
+	<input
+		id="guess"
+		name="guess_word"
+		type="text"
+		placeholder="single word here" />
 	<button>is it valid?</button>
 </form>
 <!-- our Score tracking dom element -->
@@ -34,10 +38,36 @@
 	<b>Score:</b>
 	<div id="score">0</div>
 </div>
+<!-- time tracker -->
+<div id="time-tracker">
+	<b>Time left:</b>
+	<div id="time-left">{{session["time_limit"]}}</div>
+	<!-- Display the countdown timer in an element -->
+	<p id="demo"></p>
+
+	<script>
+		// WOW this actually works!?! i can call session elements from flask servers cookie session by
+		// putting my js inside the html template's script tag WOOOOOOOOOOOOW
+		let time_limit = {{session["time_limit"]}};
+		console.log("TIME : ", time_limit)
+
+		// Update the count down every 1 second
+		let counter = setInterval(function () {
+			time_limit -= 1
+
+			$("#time-left").html(`${time_limit}`);
+
+			if (time_limit < 0) {
+				clearInterval(counter);
+				$("#time-left").html("EXPIRED");
+				$("#guess-word-form").fadeOut();
+			}
+		}, 1000);
+	</script>
+</div>
 <!-- our guesses listed -->
 <h3>Guesses</h3>
 <div id="guess-word-list">
-	<ol id="guesses">
-	</ol>
+	<ol id="guesses"></ol>
 </div>
 {% endblock %}

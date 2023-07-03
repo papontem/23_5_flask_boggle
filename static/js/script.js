@@ -11,25 +11,25 @@ function update_guess_list(guess,result){
     // console.log("result:",result);
 	
     // Create the new li element
-    let new_li = $(`<li class=${result}>`).text(`${guess} : ${result}`);
+    let new_li = $(`<li class=${result}>`).text(`${guess.toUpperCase()} : ${result}`);
 
     // Append the new li element to the guesses list
     $('#guesses').append(new_li);
 }
 function update_score(guess,result){
 	console.log("update_score")
-	console.log("guess:", guess);
-	console.log("result:",result);
+	// console.log("guess:", guess);
+	// console.log("result:",result);
 
 	// update the score dom element if word was accepted, dont wanna increase score if user entered invalid input
 	if (result == "ok") {
 		// get score inner text string value and turn it into an int with a plus sign
 		let score_value =  +$("#score").text();
-		console.log("Your Score:", score_value);
 		// increase score by length of the guess
 		score_value += guess.length
 		// change score using jquerry ezpz
 		$("#score").text(score_value)
+		// console.log("Your Score:", score_value);
 	}
 }
 // pam: add even listener to any form with our guess-word-form id
@@ -39,7 +39,7 @@ $("#guess-word-form").on("submit", async function (event) {
 	// pam: get the word the user is guessing from the froms input input
 	let guessInputValue = $("#guess").val();
 	console.log("guessInputValue:", guessInputValue);
-
+	$("#guess").val("")
 	// pam: creatinga payload variable for easier editing
 	let payload = { "guess": guessInputValue };
 

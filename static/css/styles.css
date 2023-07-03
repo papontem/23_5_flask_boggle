@@ -70,14 +70,14 @@ main#content {
 	overflow-y: auto;
 }
 #guesses li {
-	margin: 5px ;
+	margin: 5px;
 	outline: 1px black solid;
 	display: inline-block;
 }
-.not-a-word{
+.not-a-word {
 	background-color: lightcoral;
 }
-.not-on-board{
+.not-on-board {
 	background-color: orange;
 }
 .ok {
@@ -89,4 +89,10 @@ main#content {
 	padding: 6px;
 	outline: 1px black solid;
 	border-radius: 0.5em;
+}
+#score-container {
+	margin: 10px;
+}
+#time-tracker {
+	margin: 10px;
 }
