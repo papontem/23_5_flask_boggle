@@ -6,24 +6,30 @@ $(document).ready(function () {
 // const BASE_URL = "127.0.0.1:5000";
 
 function update_guess_list(guess,result){
-
-    // console.log(guess);
-    // console.log(result);
-
+	console.log("update_guess_list")
+    // cconsole.log("guess:", guess);
+    // console.log("result:",result);
+	
     // Create the new li element
     let new_li = $(`<li class=${result}>`).text(`${guess} : ${result}`);
 
     // Append the new li element to the guesses list
     $('#guesses').append(new_li);
 }
-function update_score(result){
-	
+function update_score(guess,result){
+	console.log("update_score")
+	console.log("guess:", guess);
 	console.log("result:",result);
 
-	if (result) {
-		// update the score dom element
-		let score_value = $("#score").text();
+	// update the score dom element if word was accepted, dont wanna increase score if user entered invalid input
+	if (result == "ok") {
+		// get score inner text string value and turn it into an int with a plus sign
+		let score_value =  +$("#score").text();
 		console.log("Your Score:", score_value);
+		// increase score by length of the guess
+		score_value += guess.length
+		// change score using jquerry ezpz
+		$("#score").text(score_value)
 	}
 }
 // pam: add even listener to any form with our guess-word-form id
@@ -53,7 +59,7 @@ $("#guess-word-form").on("submit", async function (event) {
 
         // update the dom elements
         update_guess_list(guessInputValue,response.data["result"])
-		update_score(response.data["result")
+		update_score(guessInputValue,response.data["result"])
 
 	} catch (error) {
 		console.error("ERROR!");

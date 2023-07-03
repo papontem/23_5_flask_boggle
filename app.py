@@ -82,16 +82,20 @@ def validate_guess_word():
     # guess = request.form.get("guess_word", "FORM")
     # guess = request.args.get("guess_word", "ARGS")
     
-    # this is to get the json from our request sent by axios, we set silent equal to true so that this method will fail silently and return None.
+    # this is to get the json from our request sent by axios, we set silent equal to true so that
+    #  incase this method fails, it does so silently, without stopping logic and return None instead.
     payload = request.get_json(silent=True)
-    if payload:
+    
+    if payload == None:
+        result ={"result": "testing"}
+        return jsonify(result)
+    else:
         guess_word = payload["guess"]
         board = session['board']
 
         # # Validation call
         result = boggle_game.check_valid_word(board, guess_word)
-    else:
-        result = "testing"
+        
 
     # setting up return with some ifs 
     if result == "ok":
@@ -101,13 +105,11 @@ def validate_guess_word():
         guess_list.append(guess_word)
         session["guess_list"] = guess_list
 
-    elif result == "not-on-board":
+    if result == "not-on-board":
         result = {"result": "not-on-board"}
     # bobble.py is returning "not-word" when your guess_word is not a word
-    elif result == "not-word":
+    if result == "not-word":
         result = {"result": "not-a-word"}
-    elif result == "testing":
-        result ={"result": result}
     # import pdb
     # pdb.set_trace()
     # return the result of validation as json
