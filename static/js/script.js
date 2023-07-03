@@ -6,16 +6,26 @@ $(document).ready(function () {
 // const BASE_URL = "127.0.0.1:5000";
 
 function update_guess_list(guess,result){
-    console.log(guess);
-    console.log(result);
+
+    // console.log(guess);
+    // console.log(result);
 
     // Create the new li element
-    let new_li = $('<li>').text(`${guess} : ${result}`);
+    let new_li = $(`<li class=${result}>`).text(`${guess} : ${result}`);
 
     // Append the new li element to the guesses list
     $('#guesses').append(new_li);
 }
+function update_score(result){
+	
+	console.log("result:",result);
 
+	if (result) {
+		// update the score dom element
+		let score_value = $("#score").text();
+		console.log("Your Score:", score_value);
+	}
+}
 // pam: add even listener to any form with our guess-word-form id
 $("#guess-word-form").on("submit", async function (event) {
 	event.preventDefault();
@@ -43,6 +53,7 @@ $("#guess-word-form").on("submit", async function (event) {
 
         // update the dom elements
         update_guess_list(guessInputValue,response.data["result"])
+		update_score(response.data["result")
 
 	} catch (error) {
 		console.error("ERROR!");

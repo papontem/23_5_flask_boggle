@@ -69,29 +69,31 @@ class FlaskTests(TestCase):
             self.assertEqual(res.status_code, 200)
             self.assertIn('<h2>Boggle Game Board</h2>', html)
 
-    # def test_board_word_guess_redirection(self):
-    #     with app.test_client() as client:
-    #         resp = client.get("/guess")
+    
+    def test_guess_axios_request(self):
+         
+        """ 
+        test what happens when we make a guess
+            http request protocals cant be similated in a single call so we changed our routes in app.py to reflect a state of testing
+        """
+        with app.test_client() as client:
+                res = client.get('/guess') # call route
 
-    #         self.assertEqual(resp.status_code, 302)
-    #         self.assertEqual(resp.location, "http://localhost/game-board")
+                try:
+                    res_data_json_str = res.get_data(as_text=True)
+                except:
+                    print("Execption Error in testing of axios guess request, trying to get response data")
+                else:
+                    # print("#########################")
+                    # print("response=",res)
+                    # print("response data json string =", res_data_json_str)
+                    # print("#########################")
 
-    # def test_board_word_guess_redirection_followed(self):
-    #     with app.test_client() as client:
-            
-    #         # # Any changes to session should go in here:
-    #         # with client.session_transaction() as change_session:
-    #         #     change_session['board'] = [
-    #         #         ['A', 'B', 'C', 'D','E'],
-    #         #         ['A', 'B', 'C', 'D','E'],
-    #         #         ['A', 'B', 'C', 'D','E'],
-    #         #         ['A', 'B', 'C', 'D','E'],
-    #         #         ['A', 'B', 'C', 'D','E'],
-    #         #     ]
+                    self.assertEqual(res.status_code, 200)
+                    # test that the response data has the required json strings
+                    self.assertIsInstance(res_data_json_str, str)
 
-    #         resp = client.get("/guess", follow_redirects=True)
-    #         html = resp.get_data(as_text=True)
 
-    #         self.assertEqual(resp.status_code, 200)
-    #         self.assertIn('<h2>Boggle Game Board</h2>', html)
+
+
 

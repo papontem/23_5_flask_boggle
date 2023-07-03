@@ -63,6 +63,26 @@ main#content {
 #guess-word-form {
 	margin: 10px;
 }
+#guess-word-list {
+	/* column-count: 2; */
+	height: 150px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+#guesses li {
+	margin: 5px ;
+	outline: 1px black solid;
+	display: inline-block;
+}
+.not-a-word{
+	background-color: lightcoral;
+}
+.not-on-board{
+	background-color: orange;
+}
+.ok {
+	background-color: lightgreen;
+}
 .chr {
 	text-align: center;
 	width: 0.7em;
