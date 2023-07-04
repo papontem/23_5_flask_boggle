@@ -4,21 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import sys
 
 """
-Step#1 
-+looking at app.py no flask code was given, we will insert our own. 
-This is where your routing logic should go.
-PAM: understood Will do!
-
-
-Step#2: Displaying the Board
-+ Display the board in a Jinja template.
-       - You will be generating a board on the backend using a function from the boggle.py file and sending that to your Jinja template.
-       - Using Jinja, display the board on the page.
-+ make sure to save the board in the flask session.
-+ Once you have displayed the board, add a form that allows a user to submit a guess.
-PAM: DONE
-
-step#3:Checking for a Valid Word WITH AJAX!! 
+Welcome to my FLask Boggle Web App.
 
 """
 
@@ -31,14 +17,12 @@ app.config['SECRET_KEY'] = "oh-so-secret"
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app) 
 
-
 boggle_game = Boggle()
 
 #GET
 @app.route('/') #decorator expecting a function
 def homepage(): #the function that will be executed when decorator is flagged
     """Show homepage"""
-
 
     # Keep a count of how many times page is visited
     session['visit_count'] = session.get('visit_count', 0) + 1
@@ -142,7 +126,7 @@ def update_tracked_user_score():
     # pdb.set_trace()
     try:
         highscore = int(payload["score"])
-        print("highscore = ", highscore)
+        # print("highscore = ", highscore)
         
         if session["highscore"] < highscore:
             session["highscore"] = highscore

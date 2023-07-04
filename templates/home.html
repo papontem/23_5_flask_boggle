@@ -10,19 +10,19 @@
 	Welcome to this simple flask boggle webgame app!
 	<br>
 	<br>
-	<b>Instruction</b>
+	<b>Instructions</b>
 	<br>
-	if you dont know how to play boggle then just click here to go read on the instructions: <a href="https://github.com/papontem/23_5_flask_boggle/blob/main/README.md">ReadME page</a>
+	If you dont know how to play boggle then just click here to go read up on the <a href="https://github.com/papontem/23_5_flask_boggle/blob/main/README.md">ReadME page</a> of my github repo.
 	<br>
 	<br>
 	<b>DO REMEMBER:</b>
 	<br>
-	when you want to start another game just come back to home through the black nav bar with the Home link.
+	when you want to start another game just come back to home through the black nav bar with the Home link, your high score will be saved and you'll be able to see it the next time you start a new game from here.
 </p>
 
 <p>Page has been visited {{ session['visit_count'] }} time(s).</p>
 
-<form action="/start-game">
+<form id="start-game-form" action="/start-game">
 	<button type="submit">Start Boggle Game!</button>
 </form>
 {% endblock %}

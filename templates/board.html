@@ -27,7 +27,7 @@
 		<div id="time-left">{{session["time_limit"]}}</div>
 		<script>
 			// WOW this actually works!?! i can call session elements from flask servers cookie session by
-			// putting my js inside the html template's script tag WOOOOOOOOOOOOW
+			// putting my js inside the html template's script tag WOOOOOOOOOOOOW feels like a quirky hack
 			let time_limit = {{session["time_limit"]}};
 			console.log("TIME : ", time_limit)
 	
@@ -78,6 +78,6 @@
 <!-- our guesses listed -->
 <h3>Guesses</h3>
 <div id="guess-word-list">
-	<ol id="guesses"></ol>
+	<ul id="guesses"></ul>
 </div>
 {% endblock %}

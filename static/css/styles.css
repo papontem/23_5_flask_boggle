@@ -43,7 +43,7 @@ h1 {
 	font-size: larger;
 	color: blueviolet;
 }
-h2{
+h2 {
 	text-align: center;
 }
 main#content {
@@ -51,6 +51,11 @@ main#content {
 	margin: 20px;
 	border-radius: 10px;
 	background-color: white;
+}
+#start-game-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 #game-board-container {
 	padding: 10px;
@@ -66,6 +71,9 @@ main#content {
 	background-color: beige;
 }
 #guess-word-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 10px;
 }
 #guess-word-list {
@@ -75,7 +83,7 @@ main#content {
 	overflow-y: auto;
 }
 #guesses li {
-	margin: 5px;
+	margin: 10px;
 	outline: 1px black solid;
 	display: inline-block;
 }
@@ -105,13 +113,13 @@ main#content {
 }
 #score-container {
 	text-align: center;
-	outline:  1px red solid;
+	outline: 1px red solid;
 }
 #highscore-container {
 	text-align: center;
-	outline: 1px blue solid ;
+	outline: 1px blue solid;
 }
 #time-tracker {
 	margin: 10px;
-	outline: 1px green solid ;
+	outline: 1px green solid;
 }
