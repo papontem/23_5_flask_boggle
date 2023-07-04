@@ -5,6 +5,47 @@
 {% block content %}
 <!-- HTML BODY TAG CONTENT OF WEBPAGE -->
 <h2>Boggle Game Board</h2>
+<div id="STATS">
+	<!-- our Score tracking dom element -->
+	<div id="score-container">
+		<b>Score:</b>
+		<div id="score">0</div>
+	</div>
+
+	<!-- our Hisghcore tracking dom element -->
+	<div id="highscore-container">
+		<b>Highscore:</b>
+		{% if session["highscore"] == 0 %}
+			<div id="highscore">0</div>
+		{% else %}
+			<div id="highscore">{{session["highscore"]}}</div>	
+		{% endif %}
+	</div>
+	<!-- our time tracking dom element -->
+	<div id="time-tracker">
+		<b>Time left:</b>
+		<div id="time-left">{{session["time_limit"]}}</div>
+		<script>
+			// WOW this actually works!?! i can call session elements from flask servers cookie session by
+			// putting my js inside the html template's script tag WOOOOOOOOOOOOW
+			let time_limit = {{session["time_limit"]}};
+			console.log("TIME : ", time_limit)
+	
+			// Update the count down every 1 second
+			let counter = setInterval(function () {
+				time_limit -= 1
+	
+				$("#time-left").html(`${time_limit}`);
+	
+				if (time_limit < 0) {
+					clearInterval(counter);
+					$("#time-left").html("EXPIRED");
+					$("#guess-word-form").fadeOut();
+				}
+			}, 1000);
+		</script>
+	</div>
+</div>
 <div id="game-board-container">
 	<!-- [][][][][]<br />[][][][][]<br />[][][][][]<br />[][][][][]<br />[][][][][] -->
 	<table id="game-board">
@@ -33,38 +74,7 @@
 		placeholder="single word here" />
 	<button>is it valid?</button>
 </form>
-<!-- our Score tracking dom element -->
-<div id="score-container">
-	<b>Score:</b>
-	<div id="score">0</div>
-</div>
-<!-- time tracker -->
-<div id="time-tracker">
-	<b>Time left:</b>
-	<div id="time-left">{{session["time_limit"]}}</div>
-	<!-- Display the countdown timer in an element -->
-	<p id="demo"></p>
 
-	<script>
-		// WOW this actually works!?! i can call session elements from flask servers cookie session by
-		// putting my js inside the html template's script tag WOOOOOOOOOOOOW
-		let time_limit = {{session["time_limit"]}};
-		console.log("TIME : ", time_limit)
-
-		// Update the count down every 1 second
-		let counter = setInterval(function () {
-			time_limit -= 1
-
-			$("#time-left").html(`${time_limit}`);
-
-			if (time_limit < 0) {
-				clearInterval(counter);
-				$("#time-left").html("EXPIRED");
-				$("#guess-word-form").fadeOut();
-			}
-		}, 1000);
-	</script>
-</div>
 <!-- our guesses listed -->
 <h3>Guesses</h3>
 <div id="guess-word-list">

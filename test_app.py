@@ -2,6 +2,7 @@ from unittest import TestCase
 from app import app
 from flask import session
 from boggle import Boggle
+import json, sys, traceback
 
 app.config['TESTING'] = True
 app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
@@ -71,29 +72,74 @@ class FlaskTests(TestCase):
 
     
     def test_guess_axios_request(self):
-         
         """ 
-        test what happens when we make a guess
-            http request protocals cant be similated in a single call so we changed our routes in app.py to reflect a state of testing
+        test what happens when we make request through route /guess using axios
         """
         with app.test_client() as client:
-                res = client.get('/guess') # call route
+            res = client.get('/guess')
 
-                try:
-                    res_data_json_str = res.get_data(as_text=True)
-                except:
-                    print("Execption Error in testing of axios guess request, trying to get response data")
-                else:
-                    # print("#########################")
-                    # print("response=",res)
-                    # print("response data json string =", res_data_json_str)
-                    # print("#########################")
+            try:
+                res_data_json_str = res.get_data(as_text=True)
+            except Exception as e:
+                print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
+                print("Exception Error in testing of axios guess request, trying to get response data")
+                print("An exception occurred:")
+                print("Type:", type(e).__name__)
+                print("Value:", str(e))
+                print("Traceback:", traceback.format_exc())
+                print("#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
+            else:
+                # print("#########################")
+                # print("Response =", res)
+                # print("Response data JSON string = \n", res_data_json_str)
+                # print("#########################")
 
-                    self.assertEqual(res.status_code, 200)
-                    # test that the response data has the required json strings
-                    self.assertIsInstance(res_data_json_str, str)
+                self.assertEqual(res.status_code, 200)
+                self.assertIsInstance(res_data_json_str, str)
 
 
+    
+    def test_update_tracked_user_score(self):
+        """ Test that user can record their highscores with the axios /score_update route"""
+        with app.test_client() as client:
+            with client.session_transaction() as session:
+                session.clear()
 
+            try:
+                # create the payload
+                payload = {"score": 100}
 
+                # send POST request to the route
+                res = client.post('/score_update', json=payload)
+                # get the json string
+                res_data_json_str = res.get_data(as_text=True)
 
+                # verify the session by getting the highscore currently saved
+                with client.session_transaction() as session:
+                    highscore = session.get('highscore')
+
+            except Exception as e:
+                print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
+                print("Exception Error in testing of axios highscore update request")
+                print("An exception occurred:")
+                print("Type:", type(e).__name__)
+                print("Value:", str(e))
+                print("Traceback:", traceback.format_exc())
+                print("#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
+            else:
+                # print("#########################")
+                # print("response=",res)
+                # print("response data json string = \n", res_data_json_str)
+                # print("#########################")
+
+                # verify the response
+                self.assertEqual(res.status_code, 200)
+                self.assertEqual(res.content_type, 'application/json')
+                self.assertIsInstance(res_data_json_str, str)
+
+                # verify the response JSON
+                res_json = res.get_json()
+                self.assertEqual(res_json, {"highscore": 100})
+                
+                # verify highscore
+                self.assertEqual(highscore, 100)

@@ -1,7 +1,7 @@
 from boggle import Boggle
 from flask import Flask, request, render_template, redirect, flash, jsonify, session
 from flask_debugtoolbar import DebugToolbarExtension
-
+import sys
 
 """
 Step#1 
@@ -56,8 +56,12 @@ def start_game():
 
     session['board'] = board
     session['guess_list'] = []
+    # time limit is in seconds e.i. value of 60 is same as 60 seconds
     session['time_limit'] = 60
-
+    # check if user already has a highscore saved in our session for flask
+    if 'highscore' not in session:
+        session["highscore"] = 0
+    
     return redirect('/game-board')
 
 @app.route('/game-board')
@@ -115,7 +119,43 @@ def validate_guess_word():
     # bobble.py is returning "not-word" when your guess_word is not a word
     if result == "not-word":
         result = {"result": "not-a-word"}
-    # import pdb
-    # pdb.set_trace()
+    
     # return the result of validation as json
     return jsonify(result)
+
+@app.route('/score_update', methods=["POST"])
+def update_tracked_user_score():
+    """
+    Takes score sent by axios js post request, compares to highscore saved in session, 
+    if higher reassigns it
+    returns some json with the new highscore
+    """
+    
+    # added this for our unittest 
+    if "highscore" not in session:
+        session["highscore"] = 0
+    
+
+    payload = request.get_json(silent=True)
+    # print("UPDATE HIGHSCORE ROUTE-> PAYLOAD RECIEVED: ", payload)
+    # import pdb
+    # pdb.set_trace()
+    try:
+        highscore = int(payload["score"])
+        print("highscore = ", highscore)
+        
+        if session["highscore"] < highscore:
+            session["highscore"] = highscore
+        
+        result = {"highscore" : highscore}
+        return jsonify(result)
+
+    except: 
+        # debuggin for ANY execption at all
+        print("Exception error has occured in /score-update route")
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        print("An exception occurred:")
+        print("Type:", exc_type)
+        print("Value:", exc_value)
+        print("Traceback:", exc_traceback)
+
