@@ -1,7 +1,7 @@
 from boggle import Boggle
 from flask import Flask, request, render_template, redirect, flash, jsonify, session
 from flask_debugtoolbar import DebugToolbarExtension
-import sys
+import sys , traceback
 
 """
 Welcome to my FLask Boggle Web App.
@@ -134,12 +134,12 @@ def update_tracked_user_score():
         result = {"highscore" : highscore}
         return jsonify(result)
 
-    except: 
-        # debuggin for ANY execption at all
-        print("Exception error has occured in /score-update route")
-        exc_type, exc_value, exc_traceback = sys.exc_info()
+    except Exception as e:
+        print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
+        print("Exception Error in testing of route to the homepage '/' ")
         print("An exception occurred:")
-        print("Type:", exc_type)
-        print("Value:", exc_value)
-        print("Traceback:", exc_traceback)
+        print("Type:", type(e).__name__)
+        print("Value:", str(e))
+        print("Traceback:", traceback.format_exc())
+        print("#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
 

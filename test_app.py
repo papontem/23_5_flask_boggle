@@ -37,7 +37,7 @@ class FlaskTests(TestCase):
                 res = client.get('/')
                 html = res.get_data(as_text=True)
 
-            except:
+            except Exception as e:
                 print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
                 print("Exception Error in testing of route to the homepage '/' ")
                 print("An exception occurred:")
@@ -121,10 +121,12 @@ class FlaskTests(TestCase):
         test what happens when we make request through route /guess using axios
         """
         with app.test_client() as client:
-            res = client.get('/guess')
-
+            
             try:
+                res = client.get('/guess')
+
                 res_data_json_str = res.get_data(as_text=True)
+
             except Exception as e:
                 print("\n#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#")
                 print("Exception Error in testing of axios guess request, trying to get response data")
